@@ -8,7 +8,7 @@ using DiplomaDataModel;
 
 namespace OptionsWebsite.DataContext
 {
-    class DiplomaContext : DbContext
+    public class DiplomaContext : DbContext
     {
         public DiplomaContext() : base("DefaultConnection") { }
 
