@@ -113,3 +113,4 @@ C:\Users\NguyenNguyen\Documents\MVC_Assign2\DiplomaDataModel\bin\Debug\Microsoft
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\DiplomaDataModel\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\DiplomaDataModel\obj\Debug\DiplomaDataModel.dll
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\DiplomaDataModel\obj\Debug\DiplomaDataModel.pdb
+C:\Users\NguyenNguyen\Documents\MVC_Assign2\DiplomaDataModel\obj\Debug\DiplomaDataModel.csprojResolveAssemblyReference.cache

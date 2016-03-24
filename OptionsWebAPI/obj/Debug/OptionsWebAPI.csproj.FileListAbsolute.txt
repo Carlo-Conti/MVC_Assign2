@@ -92,3 +92,7 @@ C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\bin\DiplomaDataModel.d
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\bin\OptionsWebsite.dll
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\bin\DiplomaDataModel.pdb
 C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\bin\OptionsWebsite.pdb
+C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\obj\Debug\OptionsWebAPI.Migrations.IdentityMigrations.InitialCreate.resources
+C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\obj\Debug\OptionsWebAPI.csproj.GenerateResource.Cache
+C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\obj\Debug\OptionsWebAPI.Migrations.DiplomaMigrations.InitialCreate.resources
+C:\Users\NguyenNguyen\Documents\MVC_Assign2\OptionsWebAPI\obj\Debug\OptionsWebAPI.Migrations.DiplomaMigrations.InitialCreate1.resources

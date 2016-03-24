@@ -30,6 +30,8 @@ namespace OptionsWebsite.Models
             return new ApplicationDbContext();
         }
 
+        public System.Data.Entity.DbSet<OptionsWebsite.Models.ApplicationUser> ApplicationUsers { get; set; }
+
         //public System.Data.Entity.DbSet<OptionsWebsite.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
