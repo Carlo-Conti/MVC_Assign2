@@ -5,12 +5,9 @@
 
     app.controller('OptionsController', ['$scope', '$http', function ($scope, $http) {
 
-        $http.get('http://localhost:52543/api/yearterms')
-        .success(function (data) {
+        $scope.message = "in the view yo";
 
-            $scope.yearterms = data;
-
-        });
+       
     }]);
 
 
