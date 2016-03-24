@@ -1,6 +1,4 @@
-﻿
-(function () {
-var myApp = angular.module('optionsViewer', ['ngRoute']);
+﻿var myApp = angular.module('myApp', ['ngRoute']);
 
 myApp.config(function ($routeProvider) {
 
@@ -8,32 +6,32 @@ myApp.config(function ($routeProvider) {
 
     .when('/', {
         templateUrl: 'views/login.html',
-        controller: 'OptionsController'
+        controller: 'mainController'
     })
 
     .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'OptionsController'
+        controller: 'secondController'
     })
     .when('/submitted', {
         templateUrl: 'views/submitted.html',
-        controller: 'OptionsController'
+        controller: 'secondController'
     })
     .when('/optionselect', {
         templateUrl: 'views/optionselect.html',
-        controller: 'OptionsController'
+        controller: 'secondController'
     })
-    .otherwise({ redirectTo: "/login" });
-
-
 
 });
 
-myApp.controller('OptionsController', ['$scope', '$http', function ($scope, $http) {
+myApp.controller('mainController', ['$scope', '$log', function ($scope, $log) {
 
-    $scope.message = "in the view yo";
-
+    $scope.name = 'Main';
 
 }]);
 
-}());
+myApp.controller('secondController', ['$scope', '$log', function ($scope, $log) {
+
+    $scope.name = 'Second';
+
+}]);
