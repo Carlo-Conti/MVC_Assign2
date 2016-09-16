@@ -31,7 +31,7 @@ namespace OptionsWebsite.Migrations.DiplomaMigrations
           if (!context.YearTerms.Any() || !context.Options.Any())
             {
                 context.YearTerms.AddOrUpdate(
-                   p => p.YearTermId,
+                   y => y.Year,
                    new YearTerm { Year = 2015, Term = 20, isDefault = false },
                    new YearTerm { Year = 2015, Term = 30, isDefault = false },
                    new YearTerm { Year = 2016, Term = 10, isDefault = false },
@@ -41,7 +41,7 @@ namespace OptionsWebsite.Migrations.DiplomaMigrations
                 context.SaveChanges();
 
                 context.Options.AddOrUpdate(
-                        p => p.OptionId,
+                        o => o.Title,
                         new Option { Title = "Data Communications", isActive = true },
                         new Option { Title = "Client Server", isActive = true },
                         new Option { Title = "Digital Processing", isActive = true },

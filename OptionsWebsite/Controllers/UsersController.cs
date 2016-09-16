@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity;
 
 namespace OptionsWebsite.Controllers
 {
@@ -16,6 +18,7 @@ namespace OptionsWebsite.Controllers
         private ApplicationDbContext context = new ApplicationDbContext();
 
         // GET: /Users/Index
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var users = context.Users.ToList();
@@ -23,19 +26,29 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Users/Edit
-        public ActionResult Edit(string id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit()
         {
-            if (id == null)
+            var users = context.Users.ToList();
+            List<string> usernames = new List<string>();
+            foreach (var user in users)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                usernames.Add(user.UserName);
             }
-            var user = context.Users.Find(id);
-            //var role = context.Roles.Where(r => r.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            if (user == null)
+
+            var roles = context.Roles.ToList();
+            List<string> valid = new List<string>();
+            foreach (var role in roles)
             {
-                return HttpNotFound();
+                valid.Add(role.Name);
             }
-            return View(user);
+
+            ViewBag.UserRoles = TempData["UserRoles"];
+            ViewBag.Message = TempData["Message"];
+            ViewBag.GetMsg = TempData["GetMsg"];
+            ViewBag.UserChoice = new SelectList(usernames);
+            ViewBag.RoleChoice = new SelectList(valid);
+            return View();
         }
 
         // POST: Users/Edit
@@ -43,18 +56,49 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, Email ")] IdentityUser user)
+        public ActionResult AddRole(string userName, string roleName)
         {
-            if (ModelState.IsValid)
-            {
-                context.Entry(user).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+            var user = context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            userManager.AddToRole(userManager.FindByEmail(user.Email).Id, roleName);
+            TempData["Message"] = "- " + roleName + " role added to user " + userName;
+
+            return RedirectToAction("Edit");
+        }
+
+        // POST: Users/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetRoles(string userName)
+        {
+            var user = context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            TempData["GetMsg"] = "Roles for user " + userName + ":";
+            TempData["UserRoles"] = userManager.GetRoles(user.Id);
+
+            return RedirectToAction("Edit");
+        }
+
+        // POST: Users/Edit
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteRole(string userName, string roleName)
+        {
+            if (userName == "A00111111" && roleName == "Admin")
+                TempData["Message"] = "- " + roleName + " role cannot be deleted from user " + userName;
+            else {
+                var user = context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                userManager.RemoveFromRole(userManager.FindByEmail(user.Email).Id, roleName);
+                TempData["Message"] = "- " + roleName + " role removed from user " + userName;
             }
-            return View(user);
+            return RedirectToAction("Edit");
         }
 
         // GET: Users/Details
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -71,6 +115,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Users/Lockout
+        [Authorize(Roles = "Admin")]
         public ActionResult Lockout(string id)
         {
             if (id == null)
@@ -91,10 +136,12 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Lockout(Microsoft.AspNet.Identity.EntityFramework.IdentityUser user)
+        public ActionResult Lockout([Bind(Include = "Id, UserName, Email, PasswordHash, SecurityStamp, LockoutEnabled ")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
+                if (user.LockoutEnabled == true)
+                    user.LockoutEndDateUtc = DateTime.UtcNow.AddYears(420);
                 context.Entry(user).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");

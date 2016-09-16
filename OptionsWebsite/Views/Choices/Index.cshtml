@@ -1,83 +1,52 @@
 ﻿@model IEnumerable<DiplomaDataModel.Choice>
 
+@section scripts {
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});</script>
+}
+
 @{
     ViewBag.Title = "Submitted Applications";
 }
 
 <h2>Submitted Applications</h2>
 
+@using (Ajax.BeginForm("Filter", "Choices", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "reports" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                <h4>Filter Term:</h4> @Html.DropDownList("termFilter", (IEnumerable<SelectListItem>)ViewBag.ValidTerms, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <h4>Filter Output:</h4> @Html.DropDownList("outFilter", (IEnumerable<SelectListItem>)ViewBag.ValidOutput, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Filter" class="btn btn-default" />
+            </div>
+        </div>
+        <hr />
+    </div>
+
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThirdChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FourthChoiceOptionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentLastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectionDate)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.Year)-@Html.DisplayFor(modelItem => item.YearTerm.Term)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SelectionDate)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
-        </td>
-    </tr>
-}
+<div id="reports">
+    @Html.Partial("Report", Model)
+</div>
 
-</table>
+

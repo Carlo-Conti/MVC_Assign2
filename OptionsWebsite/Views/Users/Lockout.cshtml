@@ -1,20 +1,32 @@
-﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityUser
+﻿@model OptionsWebsite.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Lockout";
 }
 
-<h2>Edit</h2>
+<h2>User Lockout</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h4>Disable User?</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserName)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Email)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PasswordHash)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SecurityStamp)
 
         <div class="form-group">
             @Html.LabelFor(model => model.LockoutEnabled, htmlAttributes: new { @class = "control-label col-md-2" })

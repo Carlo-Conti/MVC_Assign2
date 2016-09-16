@@ -54,15 +54,16 @@ namespace OptionsWebsite
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "2012764045614687",
+               appSecret: "b68a1cd4e0237f50af2d05617cfa77d0"
+            );
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "556214449696-vrgd07lj53fq0l06q9chlg1e658fa66l.apps.googleusercontent.com",
+                ClientSecret = "BHjk3Ha6ocIcPM9-kC31IYyG"
+            });
         }
     }
 }

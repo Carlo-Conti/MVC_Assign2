@@ -33,8 +33,8 @@ namespace OptionsWebsite.Migrations.IdentityMigrations
             {
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-                string[] emails = { "a@a.a", "s@s.s" };
-                string[] users = { "A00111111", "A00222222" };
+                string[] emails = { "a@a.a", "s@s.s" , "b@b.b", "c@c.c", "d@d.d", "e@e.e", "f@f.f", "g@g.g", "h@h.h", "j@j.j"};
+                string[] users = { "A00111111", "A00222222", "A00333333", "A00444444", "A00555555", "A00666666", "A00777777", "A00888888", "A00999999", "A00101010" };
 
                 if (!roleManager.RoleExists("Admin"))
                     roleManager.Create(new IdentityRole("Admin"));
@@ -65,8 +65,96 @@ namespace OptionsWebsite.Migrations.IdentityMigrations
                     if (result.Succeeded)
                         userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Student");
                 }
+                if (userManager.FindByEmail(emails[2]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[2],
+                        UserName = users[2],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[3]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[3],
+                        UserName = users[3],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[4]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[4],
+                        UserName = users[4],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[5]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[5],
+                        UserName = users[5],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[6]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[6],
+                        UserName = users[6],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[7]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[7],
+                        UserName = users[7],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[8]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[8],
+                        UserName = users[8],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
+                if (userManager.FindByEmail(emails[9]) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = emails[9],
+                        UserName = users[9],
+                    };
+                    var result = userManager.Create(user, "P@$$w0rd");
+                    if (result.Succeeded)
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Admin");
+                }
             }
-            
+
         }
     }
 }

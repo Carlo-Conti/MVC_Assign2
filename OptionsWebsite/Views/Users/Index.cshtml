@@ -1,10 +1,14 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
+﻿@model IEnumerable<OptionsWebsite.Models.ApplicationUser>
 
 @{
     ViewBag.Title = "User Identities";
 }
 
 <h2>User Identities</h2>
+
+<p>
+    @Html.ActionLink("Manage Roles", "Edit")
+</p>
 
 <table class="table">
     <tr>
@@ -15,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
         </th>
         <th></th>
     </tr>
@@ -30,12 +34,10 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Roles)
+                @Html.DisplayFor(modelItem => item.LockoutEnabled)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("LockOut", "Lockout", new { id = item.Id })
+            <td>  
+                @Html.ActionLink("Lockout User", "Lockout", new { id = item.Id })
             </td>
         </tr>
     }
